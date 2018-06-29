@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="Popular Artists"
+        android:id="@+id/popArtistMenu"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/search"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:title="Search"
+        android:icon="@drawable/search_icon" />
+    <item
+        android:id="@+id/favi"
+        android:title="Favourties"
+        app:showAsAction="never"/>
+</menu>
