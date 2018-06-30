@@ -71,6 +71,12 @@ public class LyricDisplay extends AppCompatActivity {
             int startInstance = start, stop = s.indexOf("\n", startInstance+1);
             int finalstop = s.indexOf("</",start);
 
+            int times = 0,st=s.indexOf("lyrics__content",0);
+            while(st>=0){
+                times++;
+                st=s.indexOf("lyrics__content",st+1);
+            }
+
             while(stop<finalstop) {
 
                 stop = s.indexOf("\n", startInstance+1);
@@ -84,21 +90,26 @@ public class LyricDisplay extends AppCompatActivity {
                 startInstance = stop;
             }
 
-            int startAgain = s.indexOf("mxm-lyrics__content",finalstop +1)+22;
-            int startInstanceAgain = startAgain,stopAgain = s.indexOf("\n",startInstanceAgain+1);
-            int finalstopAgain =  s.indexOf("</",startAgain);
 
-            while(stopAgain<finalstopAgain) {
 
-                stopAgain = s.indexOf("\n", startInstanceAgain+1);
-                if(stopAgain<finalstopAgain)
-                    Lyrics += (s.substring(startInstanceAgain, stopAgain).isEmpty()?"":s.substring(startInstanceAgain, stopAgain));
-                else{
-                    stopAgain = s.indexOf("</",startAgain);
-                    Lyrics += (s.substring(startInstanceAgain, stopAgain).isEmpty()?"":s.substring(startInstanceAgain, stopAgain));
+            if(times==2) {
+
+                int startAgain = s.indexOf("mxm-lyrics__content", finalstop + 1) + 22;
+                int startInstanceAgain = startAgain, stopAgain = s.indexOf("\n", startInstanceAgain + 1);
+                int finalstopAgain = s.indexOf("</", startAgain);
+
+                while (stopAgain < finalstopAgain) {
+
+                    stopAgain = s.indexOf("\n", startInstanceAgain + 1);
+                    if (stopAgain < finalstopAgain)
+                        Lyrics += (s.substring(startInstanceAgain, stopAgain).isEmpty() ? "" : s.substring(startInstanceAgain, stopAgain));
+                    else {
+                        stopAgain = s.indexOf("</", startAgain);
+                        Lyrics += (s.substring(startInstanceAgain, stopAgain).isEmpty() ? "" : s.substring(startInstanceAgain, stopAgain));
+                    }
+
+                    startInstanceAgain = stopAgain;
                 }
-
-                startInstanceAgain = stopAgain;
             }
             display.append("\n\n\n"+Lyrics);
         }

@@ -9,10 +9,12 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,6 +35,7 @@ public class SearchableActivity extends AppCompatActivity implements LoaderManag
     ListView searchList;
     CustomAdapter adapter;
     customCusrorAdap adapter1;
+    List data = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class SearchableActivity extends AppCompatActivity implements LoaderManag
                     Intent intent = new Intent(SearchableActivity.this,track_info.class);
                     intent.putExtra("resultObject",adapter.getItem(position).getTrack());
                     startActivity(intent);
+
                 }
             });
         }
@@ -68,7 +72,7 @@ public class SearchableActivity extends AppCompatActivity implements LoaderManag
 
             Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
             Api service = retrofit.create(Api.class);
-            Call<EntireBody> searchBody = service.getSearchResults(API_KEY,query);
+            Call<EntireBody> searchBody = service.getSearchResults(API_KEY,query,"DESC","DESC");
 
             searchBody.enqueue(new Callback<EntireBody>() {
                 @Override
@@ -76,6 +80,7 @@ public class SearchableActivity extends AppCompatActivity implements LoaderManag
                     List<DataList> objects = response.body().getMessage().getBody().getTrack_list();
                     adapter = new CustomAdapter(SearchableActivity.this,objects);
                     searchList.setAdapter(adapter);
+                    Log.v("1223",objects.get(0).getTrack().getTrack_share_url());
                 }
 
                 @Override

@@ -16,5 +16,6 @@ public interface Api {
     Call<EntireBody> getPopularArtists(@Query("apikey") String apiKey, @Query("page_size") int size);
 
     @GET("track.search")
-    Call<EntireBody> getSearchResults(@Query("apikey") String apiKey,@Query("q_track_artist") String searchKey);
+    Call<EntireBody> getSearchResults(@Query("apikey") String apiKey,@Query("q_track_artist") String searchKey,@Query("s_artist_rating") String rat1
+    ,@Query("s_track_rating") String rat2);
 }

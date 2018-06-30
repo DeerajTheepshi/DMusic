@@ -26,6 +26,7 @@ public class TransformCircle implements Transformation{
         Paint paint = new Paint();
         BitmapShader shader = new BitmapShader(squaredBitmap, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP);
         paint.setShader(shader);
+        paint.setAntiAlias(true);
 
         float r = size/2f;
         canvas.drawCircle(r, r, r, paint);
