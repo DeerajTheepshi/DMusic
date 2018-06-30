@@ -24,6 +24,8 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import com.example.android.dmusic.data.contractClass.faviTable;
 
+//ADAPTER CLASS FOR THE MAIN LIST
+
 public class CustomAdapter extends ArrayAdapter<DataList> {
 
     Context context ;
@@ -36,7 +38,7 @@ public class CustomAdapter extends ArrayAdapter<DataList> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {      //OVERRIDES AND DRAWS A LAYOUT BASED ON THE INPUT ARRAYLIST
         View view = convertView;
         if(view == null){
             view = LayoutInflater.from(context).inflate(R.layout.top_tracks_list,parent,false);
@@ -55,10 +57,10 @@ public class CustomAdapter extends ArrayAdapter<DataList> {
         final ImageView fav = (ImageView) view.findViewById(R.id.fav);
         fav.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {                                                               //WHEN FAVOURITE HEART BUTTON IS CLICLKED
                 fav.setColorFilter(getContext().getResources().getColor(R.color.fav));
                 ContentValues val = new ContentValues();
-                val.put(faviTable.TRACK,currentResult.getTrack_name());
+                val.put(faviTable.TRACK,currentResult.getTrack_name());                             //SAVE TO DATABASE
                 val.put(faviTable.ALBUM,currentResult.getAlbum_name());
                 val.put(faviTable.ARTIST,currentResult.getArtist_name());
                 val.put(faviTable.LENGTH,currentResult.getTrack_length()/60+":"+currentResult.getTrack_length()%60);
@@ -68,11 +70,11 @@ public class CustomAdapter extends ArrayAdapter<DataList> {
             }
         });
 
-        String selection = faviTable.TRACK + "=?";
+        String selection = faviTable.TRACK + "=?";                                                  //CHECK IF THE ITEM IS ALREADY IN DATABASE
         String[] selectionArgs = new String[]{currentResult.getTrack_name()};
         Cursor cursor = getContext().getContentResolver().query(faviTable.CONTENT_URI,new String[]{faviTable.TRACK},selection,selectionArgs,null);
         if(cursor.moveToNext()) {
-            fav.setColorFilter(getContext().getResources().getColor(R.color.fav));
+            fav.setColorFilter(getContext().getResources().getColor(R.color.fav));                  //SINCE SMALL DATA , NO LOADER NEEDED
         }
         return view;
     }

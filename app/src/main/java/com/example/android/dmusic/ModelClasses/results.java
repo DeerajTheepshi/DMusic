@@ -1,5 +1,8 @@
 package com.example.android.dmusic.ModelClasses;
 
+//MODEL CLASS AT DEPTH 4
+
+
 import java.io.Serializable;
 import java.security.PublicKey;
 

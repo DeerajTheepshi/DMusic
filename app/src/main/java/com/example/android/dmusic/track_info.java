@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.example.android.dmusic.ModelClasses.results;
 import com.squareup.picasso.Picasso;
 
+//NOTE THIS CLASS IS USED BY 2 ACTITY DIFFERED BY THE INTENT SENT
+
 public class track_info extends AppCompatActivity {
     TextView songname, artistname, tracklength,albumname,releaseDate,t1,t2,t3,t4,t5,titles;
     ImageView art;
@@ -39,11 +41,10 @@ public class track_info extends AppCompatActivity {
         Bundle output = getIntent().getExtras();
 
         if(output!=null){
-            resulsObject = (results) output.getSerializable("resultObject");
-            Log.v("123","true");
+            resulsObject = (results) output.getSerializable("resultObject");                    //GET THE SERIALIZED INPUT
         }
 
-        if(output.getBoolean("Artist")){
+        if(output.getBoolean("Artist")){                                                        //IF IT IS FROM THE ARTIST ACTIVITY
             t1.setText("Artist Name:");
             t2.setText("Artist Country:");
             t3.setText("Twitter Account:");
@@ -59,7 +60,7 @@ public class track_info extends AppCompatActivity {
             lyricButton.setVisibility(View.GONE);
         }
 
-        else{
+        else{                                                                                       //IF IT IS FROM THE TRACK ACTIVITY
 
             songname.setText(resulsObject.getTrack_name());
             artistname.setText(resulsObject.getArtist_name());

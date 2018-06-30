@@ -6,6 +6,8 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+//INTERFACE FOR RETROFIT , CONTAINS URL AND QUERY DATA
+
 public interface Api {
     public final String BASE_URL = "http://api.musixmatch.com/ws/1.1/";
 

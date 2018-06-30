@@ -15,6 +15,8 @@ import com.example.android.dmusic.R;
 
 import java.util.List;
 
+//ADAPTER FOR THE ARTISTS
+
 public class CustomAdapter1 extends ArrayAdapter<DataList> {
     Context context ;
     List<DataList> list;
@@ -26,7 +28,7 @@ public class CustomAdapter1 extends ArrayAdapter<DataList> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {         //OVERRIDE AND SET THE REQUIRED VIEW WITH DATA
         View view = convertView;
         if(view == null){
             view = LayoutInflater.from(context).inflate(R.layout.top_artist_list,parent,false);

@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.example.android.dmusic.data.contractClass.faviTable;
 
+//CLASS THAT MAKES CONNECTION TO DATABASE
+
 public class helperClass extends SQLiteOpenHelper {
 
     public final static String DATABASE_NAME="DMusic";
@@ -16,7 +18,7 @@ public class helperClass extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String QUERY = "CREATE TABLE " + faviTable.TABLE_NAME + " ("
+        String QUERY = "CREATE TABLE " + faviTable.TABLE_NAME + " ("                    //COMMAND TO CREATE THE TABLE
                 + faviTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + faviTable.TRACK + " TEXT NOT NULL, "
                 + faviTable.ARTIST + " TEXT NOT NULL, "

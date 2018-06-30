@@ -15,6 +15,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 
+//CLASS TO DOWNLOAD THE 100% LYRIC FROM THE NET
+
 public class LyricDisplay extends AppCompatActivity {
     TextView display;
     @Override
@@ -26,6 +28,7 @@ public class LyricDisplay extends AppCompatActivity {
 
         String url = (String) getIntent().getExtras().get("lyricURL");
 
+        //START THE BACKGORUND TASK
         lyricDownloader task = new lyricDownloader();
         task.execute(url);
     }
@@ -34,8 +37,8 @@ public class LyricDisplay extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            URL urlObject = null;
-            URLConnection urlConnection = null;
+            URL urlObject = null;                                           //THE IDEA HERE IS TO REMOVE LYRICS FROM THE SOURCE CODE OF TH WEBSITE BY PARSING THE
+            URLConnection urlConnection = null;                             //SOURCE CODE
             InputStream inputStream=null;
             BufferedReader bufferedReader=null;
             StringBuilder stringBuilder=null;
@@ -51,7 +54,7 @@ public class LyricDisplay extends AppCompatActivity {
                 {
                     if(inputLine.isEmpty())
                         Log.v("1234","Hola");
-                    stringBuilder.append("\n\n"+inputLine);
+                    stringBuilder.append("\n\n"+inputLine);                 //DISTINGUISH EACH LINE BY A \N FOR EASY PARSING
                 }
 
             } catch (UnsupportedEncodingException e) {
@@ -60,12 +63,12 @@ public class LyricDisplay extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            return stringBuilder.toString();
+            return stringBuilder.toString();                           //RETURN THE SOURCE CODE
         }
 
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(String s) {                    //THE FOLLOWING IS DONE BY ANALYSING THE SOURCE CODE PATTERN
             String Lyrics = "";
             int start = s.indexOf("mxm-lyrics__content")+22;
             int startInstance = start, stop = s.indexOf("\n", startInstance+1);
@@ -77,17 +80,20 @@ public class LyricDisplay extends AppCompatActivity {
                 st=s.indexOf("lyrics__content",st+1);
             }
 
-            while(stop<finalstop) {
+            if(times<1) {
 
-                stop = s.indexOf("\n", startInstance+1);
-                if(stop<finalstop)
-                    Lyrics += (s.substring(startInstance, stop).isEmpty()?"":s.substring(startInstance, stop));
-                else{
-                    stop = s.indexOf("</",start);
-                    Lyrics += (s.substring(startInstance, stop).isEmpty()?"":s.substring(startInstance, stop));
+                while (stop < finalstop) {
+
+                    stop = s.indexOf("\n", startInstance + 1);
+                    if (stop < finalstop)
+                        Lyrics += (s.substring(startInstance, stop).isEmpty() ? "" : s.substring(startInstance, stop));
+                    else {
+                        stop = s.indexOf("</", start);
+                        Lyrics += (s.substring(startInstance, stop).isEmpty() ? "" : s.substring(startInstance, stop));
+                    }
+
+                    startInstance = stop;
                 }
-
-                startInstance = stop;
             }
 
 
@@ -111,7 +117,7 @@ public class LyricDisplay extends AppCompatActivity {
                     startInstanceAgain = stopAgain;
                 }
             }
-            display.append("\n\n\n"+Lyrics);
+            display.append("\n\n"+Lyrics);
         }
     }
 }

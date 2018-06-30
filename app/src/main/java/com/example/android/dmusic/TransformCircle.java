@@ -7,6 +7,8 @@ import android.graphics.Paint;
 
 import com.squareup.picasso.Transformation;
 
+//NOTE :::: PICASSO TRANSFORM FOR ROUND IMAGES ( FROM GITHUB )
+
 public class TransformCircle implements Transformation{
     @Override
     public Bitmap transform(Bitmap source) {

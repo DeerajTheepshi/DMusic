@@ -3,6 +3,8 @@ package com.example.android.dmusic.data;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+//CLASS CONTAINING ALL THE IMPORTANT CONSTANTS NEEDED FOR DBMS CONNECTION
+
 public class contractClass implements BaseColumns {
 
     public contractClass() {

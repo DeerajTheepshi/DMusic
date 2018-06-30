@@ -23,6 +23,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+//THE MAIN ACTIVITY CLASS
+
 public class MainActivity extends AppCompatActivity {
 
     private final static String API_KEY = "b4267de29314b95aa3c5e20b9a354a80";
@@ -31,14 +33,14 @@ public class MainActivity extends AppCompatActivity {
     CustomAdapter adapter;
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {                 //INFLATE THE OPTIONS MENU
         getMenuInflater().inflate(R.menu.home_menu,menu);
 
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {               //SET ONCLICK LISTER FOR MENU
         int id = item.getItemId();
         switch (id){
             case R.id.popArtistMenu:
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
 
-        Api service = retrofit.create(Api.class);
+        Api service = retrofit.create(Api.class);                                                   //CREATE A CONNECTION TO RETROFIT API AND USE ITS SERVICE GET METHODS
 
         Call<EntireBody> popularTracks = service.getPopularTracks(API_KEY,50);
 
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        popularTracks.enqueue(new Callback<EntireBody>() {
+        popularTracks.enqueue(new Callback<EntireBody>() {                                          //PARSE THE RESPONSE USING RETROFIT
             @Override
             public void onResponse(Call<EntireBody> call, Response<EntireBody> response) {
                 List<DataList> objects = response.body().getMessage().getBody().getTrack_list();

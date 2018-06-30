@@ -1,5 +1,7 @@
 package com.example.android.dmusic.ModelClasses;
 
+//MODEL CLASS AT DEPTH 3
+
 public class DataList {
     public results track;
     public results artist;

@@ -2,6 +2,8 @@ package com.example.android.dmusic.ModelClasses;
 
 import java.util.List;
 
+//MODEL CLASS AT DEPTH 2
+
 public class Body {
     public List<DataList> track_list;
     public List<DataList> artist_list;

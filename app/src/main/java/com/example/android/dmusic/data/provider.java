@@ -12,12 +12,14 @@ import android.widget.Toast;
 
 import com.example.android.dmusic.data.contractClass.faviTable;
 
+//CONTENT PROVIDER FOR THE DATABASE, URL MATCH NOT NEEDED AS THE APP ALWAYS REQUEST FOR THE WHOLE TABLE
+
 public class provider extends ContentProvider {
 
     private helperClass dbhelper;
 
     @Override
-    public boolean onCreate() {
+    public boolean onCreate() {                                                 //CREATE AN INSTANCE OF THE HELPER CLASS, THUS CREATE A DATABASE CONNECTION
         dbhelper =  new helperClass(getContext());
         return true;
     }
@@ -28,7 +30,8 @@ public class provider extends ContentProvider {
         Cursor cursor;
         SQLiteDatabase db = dbhelper.getReadableDatabase();
         cursor = db.query(faviTable.TABLE_NAME,projection,selection,selectionArgs,null,null,sortOrder);
-        cursor.setNotificationUri(getContext().getContentResolver(),uri);
+        cursor.setNotificationUri(getContext().getContentResolver(),uri);           //SETS UP AN LISTENER ON THE URI
+        getContext().getContentResolver().notifyChange(uri,null);           //NOTIFY ALL LISTENERS
         return cursor;
     }
 
@@ -36,11 +39,11 @@ public class provider extends ContentProvider {
     @Override
     public String getType(@NonNull Uri uri) {
         return null;
-    }
+    }       //NOT USED
 
     @Nullable
     @Override
-    public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+    public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {                       //INSERT DATA INTO THE DATABASE, RETURN NULL IF THERE IS ANY ERROR
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         long id = 0;
         id = db.insert(faviTable.TABLE_NAME,null,values);
@@ -54,7 +57,7 @@ public class provider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteDatabase db = dbhelper.getWritableDatabase();                                         //DELETE FAVOURITES
         selection = faviTable._ID + "=?";
         selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
         int rows = db.delete(faviTable.TABLE_NAME,selection,selectionArgs);

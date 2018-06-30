@@ -21,6 +21,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+//CLASS THAT USES RERTROFIT TO DOWNLOAD THE ARTIST INFO AND PARSE IT
+
 public class topArtistsPage extends AppCompatActivity {
 
     private final static String API_KEY = "b4267de29314b95aa3c5e20b9a354a80";

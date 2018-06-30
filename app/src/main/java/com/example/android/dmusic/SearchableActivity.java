@@ -29,6 +29,8 @@ import com.example.android.dmusic.adapters.CustomAdapter;
 import com.example.android.dmusic.data.contractClass.faviTable;
 import com.example.android.dmusic.adapters.customCusrorAdap;
 
+//NOT THIS CLASS IS USED  BY TO ACTIVITES, DIFFERED BY THE INTENT THEY SEND TO THIS CLASS
+
 public class SearchableActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private final static String API_KEY = "b4267de29314b95aa3c5e20b9a354a80";
@@ -42,12 +44,12 @@ public class SearchableActivity extends AppCompatActivity implements LoaderManag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result);
         searchList = (ListView)findViewById(R.id.searchResultList);
-        if(getIntent().getExtras().getBoolean("forFav")){
+        if(getIntent().getExtras().getBoolean("forFav")){                                       //WHEN REQUESTED TO VIEW FAVOURITES
             adapter1 = new customCusrorAdap(this,null);
             searchList.setAdapter(adapter1);
-            getLoaderManager().initLoader(0,null,this);
+            getLoaderManager().initLoader(0,null,this);                           //BEGIN THE CURSOR LOADER
         }
-        else{
+        else{                                                                                       //WHEN REQUESTED TO VIEW SEARCH RESULTS
             getSearchResults(getIntent());
             searchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -61,12 +63,12 @@ public class SearchableActivity extends AppCompatActivity implements LoaderManag
         }
     }
     @Override
-    public void onNewIntent(Intent intent) {
+    public void onNewIntent(Intent intent) {                                                        //SNGLE TOP CALLS ONNEWINTENT METHOD
         setIntent(intent);
         getSearchResults(intent);
     }
 
-    private void getSearchResults(Intent intent) {
+    private void getSearchResults(Intent intent) {                                                  //PARSE THE SEARCH RESULT USING RETROFIT
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
 
@@ -80,7 +82,6 @@ public class SearchableActivity extends AppCompatActivity implements LoaderManag
                     List<DataList> objects = response.body().getMessage().getBody().getTrack_list();
                     adapter = new CustomAdapter(SearchableActivity.this,objects);
                     searchList.setAdapter(adapter);
-                    Log.v("1223",objects.get(0).getTrack().getTrack_share_url());
                 }
 
                 @Override

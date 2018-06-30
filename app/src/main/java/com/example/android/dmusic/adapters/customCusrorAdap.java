@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.example.android.dmusic.R;
 import com.example.android.dmusic.data.contractClass.faviTable;
 
+//ADAPTER TO LOAD CURSOR INTO LISTVIEW FOR FAVOURITES
+
 public class customCusrorAdap extends CursorAdapter {
 
     public customCusrorAdap(Context context, Cursor c) {
@@ -19,12 +21,12 @@ public class customCusrorAdap extends CursorAdapter {
     }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {                         //CREATE A NEW VIEW IF ONE DOESNT EXIST
         return LayoutInflater.from(context).inflate(R.layout.top_tracks_list,parent,false);
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, Context context, Cursor cursor) {                               //BIND DATA TO VIEW IF IT ALREADY EXISTS
         TextView trackname = (TextView)view.findViewById(R.id.TrackName);
         TextView artistname = (TextView)view.findViewById(R.id.TrackArtist);
         view.findViewById(R.id.fav).setVisibility(View.GONE);
