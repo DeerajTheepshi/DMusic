@@ -62,7 +62,6 @@ public class SearchableActivity extends AppCompatActivity implements LoaderManag
         int id = item.getItemId();
         switch (id){
             case R.id.search1:
-                Log.v("123",onSearchRequested()+"");
                 onSearchRequested();
                 return true;
             default:

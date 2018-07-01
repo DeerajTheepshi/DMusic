@@ -72,8 +72,6 @@ public class LyricDisplay extends AppCompatActivity {
                 String inputLine;
                 while ((inputLine = bufferedReader.readLine()) != null)
                 {
-                    if(inputLine.isEmpty())
-                        Log.v("1234","Hola");
                     stringBuilder.append("\n\n"+inputLine);                 //DISTINGUISH EACH LINE BY A \N FOR EASY PARSING
                 }
 

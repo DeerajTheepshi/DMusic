@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent1);
                 break;
             case R.id.search:
-                Log.v("123",onSearchRequested()+"");
+
                 onSearchRequested();
                 return true;
             default:
