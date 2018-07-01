@@ -4,12 +4,24 @@
     android:background="@drawable/background"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleLarge"
+            android:id="@+id/progress3"
+            android:layout_gravity="center"/>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/topArtists">
 
     </ListView>
+    </FrameLayout>
 
 
 </LinearLayout>

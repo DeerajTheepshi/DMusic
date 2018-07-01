@@ -1,11 +1,18 @@
 package com.example.android.dmusic;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.example.android.dmusic.ModelClasses.connectivityCheck;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,14 +26,27 @@ import java.net.URLConnection;
 
 public class LyricDisplay extends AppCompatActivity {
     TextView display;
+    ProgressBar loader;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lyric_displayer);
+        loader = (ProgressBar)findViewById(R.id.progress1);
 
         display = (TextView)findViewById(R.id.lyrics);
 
         String url = (String) getIntent().getExtras().get("lyricURL");
+
+        if(!new connectivityCheck(LyricDisplay.this).connectivity()){
+            new AlertDialog.Builder(this).setTitle("No Network").setMessage("Internet connection is required for the app").setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                }
+            }).create().show();
+        }
 
         //START THE BACKGORUND TASK
         lyricDownloader task = new lyricDownloader();
@@ -66,6 +86,10 @@ public class LyricDisplay extends AppCompatActivity {
             return stringBuilder.toString();                           //RETURN THE SOURCE CODE
         }
 
+        @Override
+        protected void onPreExecute() {
+            loader.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected void onPostExecute(String s) {                    //THE FOLLOWING IS DONE BY ANALYSING THE SOURCE CODE PATTERN
@@ -79,6 +103,9 @@ public class LyricDisplay extends AppCompatActivity {
                 times++;
                 st=s.indexOf("lyrics__content",st+1);
             }
+
+            if(times==0)
+                Lyrics += "LYRIC NOT AVAILABLE, SORRY!";
 
             if(times>=1) {
 
@@ -118,6 +145,7 @@ public class LyricDisplay extends AppCompatActivity {
                 }
             }
             display.append("\n\n"+Lyrics);
+            loader.setVisibility(View.GONE);
         }
     }
 }

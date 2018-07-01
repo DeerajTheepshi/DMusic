@@ -1,6 +1,8 @@
 package com.example.android.dmusic;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.android.dmusic.ModelClasses.DataList;
 import com.example.android.dmusic.ModelClasses.EntireBody;
@@ -22,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.example.android.dmusic.ModelClasses.connectivityCheck;
 
 //THE MAIN ACTIVITY CLASS
 
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     List<DataList> resultsArray = new ArrayList<DataList>();
     ListView popular;
     CustomAdapter adapter;
+    ProgressBar loader;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {                 //INFLATE THE OPTIONS MENU
@@ -67,10 +72,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         popular = (ListView) findViewById(R.id.topTracks);
+        loader = (ProgressBar)findViewById(R.id.progress);
+
+        if(!new connectivityCheck(MainActivity.this).connectivity()){
+            new AlertDialog.Builder(this).setTitle("No Network").setMessage("Internet connection is required for the app").setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                }
+            }).create().show();
+        }
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
 
         Api service = retrofit.create(Api.class);                                                   //CREATE A CONNECTION TO RETROFIT API AND USE ITS SERVICE GET METHODS
+
+        loader.setVisibility(View.VISIBLE);
 
         Call<EntireBody> popularTracks = service.getPopularTracks(API_KEY,50);
 
@@ -89,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 List<DataList> objects = response.body().getMessage().getBody().getTrack_list();
                 adapter = new CustomAdapter(MainActivity.this,objects);
                 popular.setAdapter(adapter);
+                loader.setVisibility(View.GONE);
             }
 
 
