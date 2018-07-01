@@ -61,6 +61,7 @@ public class provider extends ContentProvider {
         selection = faviTable._ID + "=?";
         selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
         int rows = db.delete(faviTable.TABLE_NAME,selection,selectionArgs);
+        getContext().getContentResolver().notifyChange(uri,null);
         if(rows==1){
             return 1;
         }

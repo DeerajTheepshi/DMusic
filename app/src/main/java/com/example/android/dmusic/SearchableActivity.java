@@ -2,11 +2,14 @@ package com.example.android.dmusic;
 
 import android.app.LoaderManager;
 import android.app.SearchManager;
+import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,6 +31,7 @@ import com.example.android.dmusic.ModelClasses.EntireBody;
 import com.example.android.dmusic.adapters.CustomAdapter;
 import com.example.android.dmusic.data.contractClass.faviTable;
 import com.example.android.dmusic.adapters.customCusrorAdap;
+import com.example.android.dmusic.data.searchHistory;
 
 //NOT THIS CLASS IS USED  BY TO ACTIVITES, DIFFERED BY THE INTENT THEY SEND TO THIS CLASS
 
@@ -71,6 +75,8 @@ public class SearchableActivity extends AppCompatActivity implements LoaderManag
     private void getSearchResults(Intent intent) {                                                  //PARSE THE SEARCH RESULT USING RETROFIT
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
+            SearchRecentSuggestions src = new SearchRecentSuggestions(this,searchHistory.CONTENT_URI,searchHistory.MODE);
+            src.saveRecentQuery(query,null);
 
             Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
             Api service = retrofit.create(Api.class);

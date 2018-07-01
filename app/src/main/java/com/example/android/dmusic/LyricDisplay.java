@@ -80,7 +80,7 @@ public class LyricDisplay extends AppCompatActivity {
                 st=s.indexOf("lyrics__content",st+1);
             }
 
-            if(times<1) {
+            if(times>=1) {
 
                 while (stop < finalstop) {
 

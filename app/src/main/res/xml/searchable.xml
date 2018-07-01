@@ -2,5 +2,7 @@
 <searchable
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:label="@string/app_name"
-    android:hint="Search for Song">
+    android:hint="Search for Song"
+    android:searchSuggestAuthority="com.example.android.dmusic.searchHistoryProvider"
+    android:searchSuggestSelection=" ?">
 </searchable>
