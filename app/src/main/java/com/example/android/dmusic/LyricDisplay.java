@@ -38,7 +38,7 @@ public class LyricDisplay extends AppCompatActivity {
         String url = (String) getIntent().getExtras().get("lyricURL");
 
         if(!new connectivityCheck(LyricDisplay.this).connectivity()){
-            new AlertDialog.Builder(this).setTitle("No Network").setMessage("Internet connection is required for the app").setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+            new AlertDialog.Builder(this).setTitle("No Network").setCancelable(false).setMessage("Internet connection is required for the app").setPositiveButton("Retry", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = getIntent();
@@ -47,10 +47,11 @@ public class LyricDisplay extends AppCompatActivity {
                 }
             }).create().show();
         }
-
-        //START THE BACKGORUND TASK
-        lyricDownloader task = new lyricDownloader();
-        task.execute(url);
+        else {
+            //START THE BACKGORUND TASK
+            lyricDownloader task = new lyricDownloader();
+            task.execute(url);
+        }
     }
 
     private class lyricDownloader extends AsyncTask<String,Void,String> {
@@ -81,6 +82,7 @@ public class LyricDisplay extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            assert stringBuilder != null;
             return stringBuilder.toString();                           //RETURN THE SOURCE CODE
         }
 

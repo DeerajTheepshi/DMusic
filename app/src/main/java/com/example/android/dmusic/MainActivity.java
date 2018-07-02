@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         loader = (ProgressBar)findViewById(R.id.progress);
 
         if(!new connectivityCheck(MainActivity.this).connectivity()){
-            new AlertDialog.Builder(this).setTitle("No Network").setMessage("Internet connection is required for the app").setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+            new AlertDialog.Builder(this).setTitle("No Network").setCancelable(false).setMessage("Internet connection is required for the app").setPositiveButton("Retry", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = getIntent();

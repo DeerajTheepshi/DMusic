@@ -42,7 +42,7 @@ public class topArtistsPage extends AppCompatActivity {
         loader = (ProgressBar) findViewById(R.id.progress3);
 
         if(!new connectivityCheck(topArtistsPage.this).connectivity()){
-            new AlertDialog.Builder(this).setTitle("No Network").setMessage("Internet connection is required for the app").setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+            new AlertDialog.Builder(this).setTitle("No Network").setCancelable(false).setMessage("Internet connection is required for the app").setPositiveButton("Retry", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = getIntent();
