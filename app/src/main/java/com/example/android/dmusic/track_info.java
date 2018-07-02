@@ -10,8 +10,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.dmusic.ModelClasses.Genre;
 import com.example.android.dmusic.ModelClasses.results;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 //NOTE THIS CLASS IS USED BY 2 ACTITY DIFFERED BY THE INTENT SENT
 
@@ -58,7 +61,12 @@ public class track_info extends AppCompatActivity {
             albumname.setText(!resulsObject.getArtist_country().isEmpty()?resulsObject.getArtist_country():"Not Available");
             tracklength.setText(resulsObject.getArtist_rating());
             titles.setText(resulsObject.getArtist_name());
-            releaseDate.setText(resulsObject.getMusic_genre_list().get(0).getMusic_genre().getMusic_genre_name());
+            String Genres="";
+            List<Genre> objects = resulsObject.getPrimary_genres().getMusic_genre_list();
+            for(int i=0;i<objects.size();i++){
+                Genres += objects.get(i).getMusic_genre().getMusic_genre_name()+"  ";
+            }
+            releaseDate.setText(Genres);
             lyricButton.setVisibility(View.GONE);
         }
 

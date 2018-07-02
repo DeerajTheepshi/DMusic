@@ -1,6 +1,8 @@
 package com.example.android.dmusic.ModelClasses;
 
-public class musicType {
+import java.io.Serializable;
+
+public class musicType implements Serializable{
     public String music_genre_name;
 
     public String getMusic_genre_name() {
