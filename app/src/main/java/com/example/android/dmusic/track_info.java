@@ -49,6 +49,7 @@ public class track_info extends AppCompatActivity {
             t2.setText("Artist Country:");
             t3.setText("Twitter Account:");
             t4.setText("Artist Rating: ");
+            t5.setText("Genres: ");
             setTitle("About Artist");
             art.setVisibility(View.GONE);
 
@@ -57,6 +58,7 @@ public class track_info extends AppCompatActivity {
             albumname.setText(!resulsObject.getArtist_country().isEmpty()?resulsObject.getArtist_country():"Not Available");
             tracklength.setText(resulsObject.getArtist_rating());
             titles.setText(resulsObject.getArtist_name());
+            releaseDate.setText(resulsObject.getMusic_genre_list().get(0).getMusic_genre().getMusic_genre_name());
             lyricButton.setVisibility(View.GONE);
         }
 

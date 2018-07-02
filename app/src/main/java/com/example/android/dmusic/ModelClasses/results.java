@@ -5,6 +5,7 @@ package com.example.android.dmusic.ModelClasses;
 
 import java.io.Serializable;
 import java.security.PublicKey;
+import java.util.List;
 
 public class results implements Serializable {
     public String track_name;
@@ -17,6 +18,7 @@ public class results implements Serializable {
     public String album_coverart_100x100;
     public String first_release_date;
     public String track_share_url;
+    public List<Genre> music_genre_list;
 
     public String getArtist_rating() {
         return artist_rating;
@@ -58,7 +60,11 @@ public class results implements Serializable {
         return track_share_url;
     }
 
-    public results(String track_name, String artist_name, String artist_rating, String album_name, int track_length, String artist_country, String artist_twitter_url, String album_coverart_100x100, String first_release_date, String track_share_url) {
+    public List<Genre> getMusic_genre_list() {
+        return music_genre_list;
+    }
+
+    public results(String track_name, String artist_name, String artist_rating, String album_name, int track_length, String artist_country, String artist_twitter_url, String album_coverart_100x100, String first_release_date, String track_share_url, List<Genre> music_genre_list) {
 
         this.track_name = track_name;
         this.artist_name = artist_name;
@@ -70,5 +76,6 @@ public class results implements Serializable {
         this.album_coverart_100x100 = album_coverart_100x100;
         this.first_release_date = first_release_date;
         this.track_share_url = track_share_url;
+        this.music_genre_list = music_genre_list;
     }
 }
