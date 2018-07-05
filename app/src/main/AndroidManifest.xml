@@ -31,15 +31,14 @@
                 android:value=".SearchableActivity" />
         </activity>
 
-        <activity android:name=".topArtistsPage"
-            android:label="Top Artists"/>
-
         <activity android:name=".track_info"
             android:label="About Track"/>
 
         <activity android:name=".LyricDisplay"
             android:parentActivityName=".MainActivity"
             android:label="Lyrics"/>
+
+
 
         <provider
             android:name=".data.provider"

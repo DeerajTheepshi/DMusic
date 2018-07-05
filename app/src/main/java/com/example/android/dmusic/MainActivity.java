@@ -2,6 +2,8 @@ package com.example.android.dmusic;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.example.android.dmusic.Fragments.mainFragment;
+import com.example.android.dmusic.Fragments.pagerAdapter;
 import com.example.android.dmusic.ModelClasses.DataList;
 import com.example.android.dmusic.ModelClasses.EntireBody;
 import com.example.android.dmusic.adapters.CustomAdapter;
@@ -31,7 +35,7 @@ import com.example.android.dmusic.ModelClasses.connectivityCheck;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final static String API_KEY = "b4267de29314b95aa3c5e20b9a354a80";
+   /* private final static String API_KEY = "b4267de29314b95aa3c5e20b9a354a80";
     List<DataList> resultsArray = new ArrayList<DataList>();
     ListView popular;
     CustomAdapter adapter;
@@ -117,6 +121,25 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }*/
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.music_cat);
+
+        // Find the view pager that will allow the user to swipe between fragments
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        // Create an adapter that knows which fragment should be shown on each page
+        pagerAdapter adapter = new pagerAdapter(getSupportFragmentManager());
+
+        // Set the adapter onto the view pager
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 

@@ -74,7 +74,7 @@ public class CustomAdapter extends ArrayAdapter<DataList> {
         String[] selectionArgs = new String[]{currentResult.getTrack_name()};
         Cursor cursor = getContext().getContentResolver().query(faviTable.CONTENT_URI,new String[]{faviTable.TRACK},selection,selectionArgs,null);
         if(cursor.moveToNext()) {
-            fav.setColorFilter(getContext().getResources().getColor(R.color.fav));                  //SINCE SMALL DATA , NO LOADER NEEDED
+           // fav.setColorFilter(getContext().getResources().getColor(R.color.fav));                  //SINCE SMALL DATA , NO LOADER NEEDED
         }
         return view;
     }
